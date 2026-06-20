@@ -9,6 +9,8 @@ import moviesRoutes from './routes/movies.js';
 import sessionsRoutes from './routes/sessions.js';
 import bookingsRoutes from './routes/bookings.js';
 import adminRoutes from './routes/admin.js';
+import tmdbRoutes from './routes/tmdbRoutes.js';
+
 
 dotenv.config();
 
@@ -49,6 +51,7 @@ app.use('/api/movies', moviesRoutes);
 app.use('/api/sessions', sessionsRoutes);
 app.use('/api/bookings', bookingsRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/tmdb', tmdbRoutes);
 
 // Тестовый роут
 app.get('/', (req, res) => {
