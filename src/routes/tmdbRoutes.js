@@ -80,4 +80,25 @@ router.get('/movie/:id', async (req, res) => {
   }
 });
 
+
+// Прокси для картинок TMDB
+router.get('/image/:size/:path', async (req, res) => {
+  try {
+    const { size, path } = req.params;
+    const imageUrl = `https://image.tmdb.org/t/p/${size}/${path}`;
+
+    const response = await axios.get(imageUrl, {
+      responseType: 'stream',
+    });
+
+    res.setHeader('Content-Type', response.headers['content-type'] || 'image/jpeg');
+    res.setHeader('Cache-Control', 'public, max-age=86400'); // кэш на 1 день
+
+    response.data.pipe(res);
+  } catch (error) {
+    console.error('Image proxy error:', error.message);
+    res.status(404).send('Image not found');
+  }
+});
+
 export default router;

@@ -53,6 +53,7 @@ app.use('/api/bookings', bookingsRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/tmdb', tmdbRoutes);
 
+
 // Тестовый роут
 app.get('/', (req, res) => {
   res.send('✅ KinoBook Backend работает!');
