@@ -81,7 +81,9 @@ router.get('/movie/:id', async (req, res) => {
 });
 
 
-// Прокси для картинок TMDB
+
+
+// === Прокси для картинок TMDB ===
 router.get('/image/:size/:path', async (req, res) => {
   try {
     const { size, path } = req.params;
@@ -91,8 +93,9 @@ router.get('/image/:size/:path', async (req, res) => {
       responseType: 'stream',
     });
 
+    // Передаём заголовки
     res.setHeader('Content-Type', response.headers['content-type'] || 'image/jpeg');
-    res.setHeader('Cache-Control', 'public, max-age=86400'); // кэш на 1 день
+    res.setHeader('Cache-Control', 'public, max-age=86400'); // кэш на сутки
 
     response.data.pipe(res);
   } catch (error) {
@@ -100,5 +103,6 @@ router.get('/image/:size/:path', async (req, res) => {
     res.status(404).send('Image not found');
   }
 });
+
 
 export default router;
